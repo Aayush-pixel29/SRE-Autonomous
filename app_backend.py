@@ -3,7 +3,7 @@ import time
 from fastapi import FastAPI
 from pydantic import BaseModel
 from langchain_ollama import ChatOllama
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 
 # Configure stdout to use UTF-8 to prevent Unicode printing issues on Windows console
 if hasattr(sys.stdout, 'reconfigure'):
@@ -24,8 +24,24 @@ async def process_triage_stream(payload: QueryRequest):
     context = "System Log Alert: [ERROR] OOMKilled detected in checkout_service container group."
     
     # 2. Invoke local model
-    combined_prompt = f"Context: {context}\n\nQuery: {payload.query}"
-    messages = [HumanMessage(content=combined_prompt)]
+    system_prompt = (
+        "You are an expert Enterprise Operations & FinOps SRE Assistant.\n"
+        "Your task is to analyze system logs and financial data to diagnose issues.\n"
+        "CRITICAL RULES:\n"
+        "1. Answer the user query using ONLY the facts provided in the 'Retrieved Context' below.\n"
+        "2. If the context does not contain enough information to answer the question, reply exactly with: "
+        "'INSUFFICIENT_CONTEXT: The available operational documents do not contain evidence to resolve this query.'\n"
+        "3. Do not assume, extrapolate, or utilize outside training data for factual claims.\n"
+        "4. Format your final response strictly with these markdown headers:\n"
+        "   ### 🔍 Root Cause Diagnosis\n"
+        "   ### ⚡ Impacted Subsystems\n"
+        "   ### 💰 Financial/Business Impact"
+    )
+    combined_prompt = f"Retrieved Context:\n{context}\n\nUser Query: {payload.query}"
+    messages = [
+        SystemMessage(content=system_prompt),
+        HumanMessage(content=combined_prompt)
+    ]
     response = llm.invoke(messages)
     
     end_time = time.perf_counter()
