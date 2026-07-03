@@ -1,0 +1,65 @@
+2026-07-03 10:00:01 INFO [auth_service] User login attempt - username: user_42, IP: 192.168.1.105
+2026-07-03 10:00:02 INFO [auth_service] User login successful - username: user_42, session_id: sess_a8f9c2d1
+2026-07-03 10:00:05 INFO [gateway] GET /api/v1/user/profile - Status: 200, Latency: 45ms, User: user_42
+2026-07-03 10:00:10 INFO [inventory_service] Fetching product list - category: electronics, page: 1
+2026-07-03 10:00:11 INFO [gateway] GET /api/v1/products - Status: 200, Latency: 120ms, User: anonymous
+2026-07-03 10:00:15 INFO [cart_service] Add item to cart - user_id: user_42, product_id: prod_9921, quantity: 1
+2026-07-03 10:00:15 INFO [gateway] POST /api/v1/cart/items - Status: 200, Latency: 85ms, User: user_42
+2026-07-03 10:01:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 15ms, User: internal_monitor
+2026-07-03 10:01:05 INFO [auth_service] User login attempt - username: admin, IP: 203.0.113.50
+2026-07-03 10:01:06 WARNING [auth_service] Failed login attempt - username: admin, IP: 203.0.113.50, Reason: Invalid credentials
+2026-07-03 10:01:07 INFO [gateway] POST /api/v1/auth/login - Status: 401, Latency: 150ms, User: anonymous
+2026-07-03 10:01:20 INFO [inventory_service] Fetching product details - product_id: prod_9921
+2026-07-03 10:01:21 INFO [gateway] GET /api/v1/products/prod_9921 - Status: 200, Latency: 35ms, User: user_42
+2026-07-03 10:02:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 10ms, User: internal_monitor
+2026-07-03 10:02:15 INFO [checkout_service] Starting checkout process - user_id: user_42, cart_id: cart_5510
+2026-07-03 10:02:18 INFO [payment_service] Initiating payment request - amount: 129.99 USD, gateway: Stripe
+2026-07-03 10:02:20 ERROR [payment_service] Stripe gateway timeout - connection refused (retry 1/3)
+2026-07-03 10:02:22 ERROR [payment_service] Stripe gateway timeout - connection refused (retry 2/3)
+2026-07-03 10:02:24 ERROR [payment_service] Stripe gateway timeout - connection refused (retry 3/3)
+2026-07-03 10:02:24 CRITICAL [payment_service] Payment processing failed - Gateway Unavailable
+2026-07-03 10:02:25 INFO [checkout_service] Checkout failed for user_id: user_42 - Payment failed
+2026-07-03 10:02:25 INFO [gateway] POST /api/v1/checkout - Status: 503, Latency: 7200ms, User: user_42
+2026-07-03 10:03:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 12ms, User: internal_monitor
+2026-07-03 10:03:12 INFO [db_pool] Checking connection pool health - active: 15, idle: 35, max: 50
+2026-07-03 10:03:45 INFO [inventory_service] Updating stock level - product_id: prod_9921, change: 0
+2026-07-03 10:04:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 18ms, User: internal_monitor
+2026-07-03 10:04:10 INFO [auth_service] User login attempt - username: user_43, IP: 198.51.100.12
+2026-07-03 10:04:11 INFO [auth_service] User login successful - username: user_43, session_id: sess_c2d3e4f5
+2026-07-03 10:04:15 INFO [gateway] GET /api/v1/user/profile - Status: 200, Latency: 40ms, User: user_43
+2026-07-03 10:04:30 INFO [inventory_service] Fetching product list - category: books, page: 1
+2026-07-03 10:04:31 INFO [gateway] GET /api/v1/products - Status: 200, Latency: 95ms, User: user_43
+2026-07-03 10:05:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 11ms, User: internal_monitor
+2026-07-03 10:05:10 ERROR [db_pool] Connection pool exhausted! Max 50 connections reached.
+2026-07-03 10:05:12 ERROR [checkout_service] Database query failed: Timeout waiting for connection from pool
+2026-07-03 10:05:12 INFO [gateway] POST /api/v1/checkout - Status: 500, Latency: 2000ms, User: user_43
+2026-07-03 10:05:15 WARNING [db_pool] Releasing stuck connection - thread_id: 1042, age: 120s
+2026-07-03 10:05:16 INFO [db_pool] Connection pool back within normal parameters - active: 38, idle: 12
+2026-07-03 10:05:30 INFO [cart_service] Clear cart - user_id: user_43
+2026-07-03 10:05:31 INFO [gateway] DELETE /api/v1/cart - Status: 200, Latency: 50ms, User: user_43
+2026-07-03 10:06:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 14ms, User: internal_monitor
+2026-07-03 10:06:15 INFO [auth_service] Session logout - session_id: sess_c2d3e4f5
+2026-07-03 10:06:16 INFO [gateway] POST /api/v1/auth/logout - Status: 200, Latency: 30ms, User: user_43
+2026-07-03 10:07:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 13ms, User: internal_monitor
+2026-07-03 10:08:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 10ms, User: internal_monitor
+2026-07-03 10:09:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 12ms, User: internal_monitor
+2026-07-03 10:10:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 15ms, User: internal_monitor
+2026-07-03 10:10:30 INFO [notification_service] Sending dispatch email - user_id: user_42, tracking_id: trk_990231
+2026-07-03 10:10:32 INFO [notification_service] Email sent successfully via SMTP
+2026-07-03 10:10:33 INFO [gateway] POST /api/v1/notifications/email - Status: 200, Latency: 2500ms, User: system
+2026-07-03 10:11:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 11ms, User: internal_monitor
+2026-07-03 10:11:45 WARNING [auth_service] High volume of login attempts from IP: 198.51.100.45
+2026-07-03 10:11:50 INFO [auth_service] Rate limiter engaged for IP: 198.51.100.45
+2026-07-03 10:11:51 INFO [gateway] POST /api/v1/auth/login - Status: 429, Latency: 5ms, User: anonymous
+2026-07-03 10:12:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 13ms, User: internal_monitor
+2026-07-03 10:13:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 12ms, User: internal_monitor
+2026-07-03 10:14:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 14ms, User: internal_monitor
+2026-07-03 10:15:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 10ms, User: internal_monitor
+2026-07-03 10:15:22 ERROR [inventory_service] Failed to fetch database sequence for new product insertion
+2026-07-03 10:15:23 ERROR [inventory_service] org.postgresql.util.PSQLException: FATAL: remaining connection slots are reserved for non-replication superuser connections
+2026-07-03 10:15:24 INFO [gateway] POST /api/v1/products - Status: 500, Latency: 210ms, User: admin
+2026-07-03 10:16:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 11ms, User: internal_monitor
+2026-07-03 10:17:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 12ms, User: internal_monitor
+2026-07-03 10:18:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 16ms, User: internal_monitor
+2026-07-03 10:19:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 13ms, User: internal_monitor
+2026-07-03 10:20:00 INFO [gateway] GET /api/v1/system/health - Status: 200, Latency: 14ms, User: internal_monitor

@@ -1,0 +1,14 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local Qdrant Database Storage
+local_qdrant_db/
+.lock
+
+# Environments
+.venv/
+venv/
+ENV/
+env/
