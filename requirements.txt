@@ -1,0 +1,12 @@
+qdrant-client
+sentence-transformers
+langchain-text-splitters
+pypdf
+langchain-core
+langchain-community
+fastapi
+uvicorn
+requests
+rank_bm25
+openai
+python-dotenv
